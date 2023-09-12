@@ -17,6 +17,10 @@ function Navbar() {
                         href={route("home")}
                         className="flex flex-row items-center gap-3"
                     >
+                        <img
+                            src={`/storage/${indekos.logo}`}
+                            className="hidden w-16 h-16 lg:block"
+                        />
                         <span className="text-2xl font-semibold tracking-wider text-primary">
                             Indekos
                         </span>

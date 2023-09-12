@@ -23,19 +23,19 @@ function MobileNavbar() {
             </SheetTrigger>
             <SheetContent
                 side="left"
-                className="p-5 text-white bg-slate-900 flex flex-col justify-between"
+                className="flex flex-col justify-between p-5 text-black bg-white"
             >
                 <div>
                     <Link
                         href={route("home")}
-                        className="-m-1.5 p-1.5 flex flex-col items-center gap-5"
+                        className="-m-1.5 p-1.5 flex flex-col items-center gap-1"
                     >
                         <img
                             src={`/storage/${indekos?.logo}`}
                             alt="Logo"
-                            className="w-10 h-10"
+                            className="w-20 h-20"
                         />
-                        <h1 className="text-primary font-semibold tracking-wider text-2xl">
+                        <h1 className="text-2xl font-semibold tracking-wider text-primary">
                             Indekos
                         </h1>
                     </Link>
@@ -54,7 +54,7 @@ function MobileNavbar() {
                 <div>
                     <Link
                         href={route("login")}
-                        className="border py-2 px-4 border-primary rounded-md text-primary hover:shadow-md hover:shadow-primary flex gap-3 justify-center hover:font-bold items-center text-center flex-row"
+                        className="flex flex-row items-center justify-center gap-3 px-4 py-2 text-center border rounded-md border-primary text-primary hover:shadow-md hover:shadow-primary hover:font-bold"
                     >
                         <LogIn />
                         <span>Masuk</span>

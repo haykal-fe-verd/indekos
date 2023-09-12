@@ -161,7 +161,7 @@ function Login() {
                     <span>Belum punya akun? </span>
                     <Link
                         href={route("register")}
-                        className="text-blue-500 hover:underline"
+                        className="text-primary hover:underline"
                     >
                         klik disini
                     </Link>

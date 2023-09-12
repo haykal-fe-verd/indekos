@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penyewa;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -21,7 +22,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('guest/register/index');
     }
 
     /**
@@ -33,8 +34,14 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => 'required|string|email|max:255|unique:' . User::class,
+            'password' => ['required', Rules\Password::defaults()],
+            'tanggal_lahir' => 'required|date',
+            'tempat_lahir' => 'required|string',
+            'jenis_kelamin' => 'required|in:L,P',
+            'no_hp' => 'required|string',
+            'umur' => 'required|integer',
+            'alamat' => 'required|string',
         ]);
 
         $user = User::create([
@@ -43,8 +50,17 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        Penyewa::Create([
+            'user_id' => $user->id,
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'tempat_lahir' => $request->input('tempat_lahir'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
+            'no_hp' => $request->input('no_hp'),
+            'alamat' => $request->input('alamat'),
+            'umur' => $request->input('umur'),
+        ]);
 
+        event(new Registered($user));
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

@@ -25,30 +25,30 @@ Route::middleware('guest')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home'); //*! done
 
     // register
-    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); //*! done
+    Route::post('register', [RegisteredUserController::class, 'store']); //*! done
 
     // login
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login'); //*! done
     Route::post('login', [AuthenticatedSessionController::class, 'store']); //*! done
 
     // forgot-password
-    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request'); //*! done
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email'); //*! done
+    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset'); //*! done
+    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store'); //*! done
+});
+
+//* verify email
+Route::middleware('auth')->group(function () {
+    // verifikasi email
+    Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice'); //*! done
+    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(['signed', 'throttle:6,1'])->name('verification.verify'); //*! done
+    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware('throttle:6,1')->name('verification.send'); //*! done
 });
 
 //* auth
-Route::middleware('auth')->group(function () {
-    // verifikasi email
-    Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice');
-    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(['signed', 'throttle:6,1'])
-        ->name('verification.verify');
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-        ->middleware('throttle:6,1')
-        ->name('verification.send');
-
+Route::middleware(['auth', 'verified'])->group(function () {
     // change password
     Route::get('change-password', [PasswordController::class, 'index'])->name('password.index'); //*! done
     Route::put('change-password', [PasswordController::class, 'update'])->name('password.update'); //*! done
@@ -69,10 +69,10 @@ Route::middleware('auth')->group(function () {
         Route::get('indekos', [IndekosController::class, 'index'])->name('indekos.index'); //*! done
         Route::post('indekos', [IndekosController::class, 'update'])->name('indekos.update'); //*! done
 
-        Route::get('kategori', [KategoriController::class, 'index'])->name('kategori.index');
-        Route::post('kategori', [KategoriController::class, 'store'])->name('kategori.store');
-        Route::put('kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
-        Route::delete('kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+        Route::get('kategori', [KategoriController::class, 'index'])->name('kategori.index'); //*! done
+        Route::post('kategori', [KategoriController::class, 'store'])->name('kategori.store'); //*! done
+        Route::put('kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update'); //*! done
+        Route::delete('kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy'); //*! done
     });
 
     // penyewa
