@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndekosController;
+use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -23,6 +24,12 @@ use Illuminate\Foundation\Application;
 Route::middleware('guest')->group(function () {
     // home
     Route::get('/', [HomeController::class, 'index'])->name('home'); //*! done
+
+    // daftar kamar
+    Route::get('/daftar-kamar', [HomeController::class, 'daftarKamar'])->name('daftar.kamar'); //*! done
+
+    // detail kamar
+    Route::get('/detail-kamar/{id}', [HomeController::class, 'detailKamar'])->name('detail.kamar');
 
     // register
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); //*! done
@@ -39,22 +46,11 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store'); //*! done
 });
 
-//* verify email
-Route::middleware('auth')->group(function () {
-    // verifikasi email
-    Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice'); //*! done
-    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(['signed', 'throttle:6,1'])->name('verification.verify'); //*! done
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware('throttle:6,1')->name('verification.send'); //*! done
-});
-
 //* auth
 Route::middleware(['auth', 'verified'])->group(function () {
     // change password
     Route::get('change-password', [PasswordController::class, 'index'])->name('password.index'); //*! done
     Route::put('change-password', [PasswordController::class, 'update'])->name('password.update'); //*! done
-
-    // logout
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout'); //*! done
 
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); //*! done
@@ -62,7 +58,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); //*! done
-
 
     // admin
     Route::middleware('can:admin')->group(function () {
@@ -73,9 +68,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('kategori', [KategoriController::class, 'store'])->name('kategori.store'); //*! done
         Route::put('kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update'); //*! done
         Route::delete('kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy'); //*! done
+
+        Route::get('kamar', [KamarController::class, 'index'])->name('kamar.index');  //*! done
+        Route::get('kamar/create', [KamarController::class, 'create'])->name('kamar.create');  //*! done
+        Route::get('kamar/{id}/edit', [KamarController::class, 'edit'])->name('kamar.edit'); //*! done
+        Route::get('kamar/{id}/show', [KamarController::class, 'show'])->name('kamar.show'); //*! done
+        Route::post('kamar', [KamarController::class, 'store'])->name('kamar.store');  //*! done
+        Route::post('kamar/{id}', [KamarController::class, 'update'])->name('kamar.update'); //*! done
+        Route::delete('kamar/{id}', [KamarController::class, 'destroy'])->name('kamar.destroy');  //*! done
     });
 
     // penyewa
     Route::middleware('can:penyewa')->group(function () {
     });
+});
+
+// !other route
+Route::middleware('auth')->group(function () {
+    // logout
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout'); //*! done
+
+    Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice'); //*! done
+    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(['signed', 'throttle:6,1'])->name('verification.verify'); //*! done
+    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware('throttle:6,1')->name('verification.send'); //*! done
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Indekos;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -53,6 +54,7 @@ class HandleInertiaRequests extends Middleware
                 'whatsapp' => 'whatsapp indekos',
                 'logo' => 'logo indekos',
             ],
+            'kategori' => Kategori::all(),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

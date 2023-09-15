@@ -97,7 +97,7 @@ function Kategori({ kategori }) {
                 }}
             >
                 <Head title="Kategori" />
-                <div className="p-5 space-y-4">
+                <div className="space-y-4">
                     <div>
                         <h2 className="text-2xl font-bold md:text-4xl">
                             Kategori

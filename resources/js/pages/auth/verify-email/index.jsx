@@ -77,9 +77,9 @@ export default function VerifyEmail({ status }) {
                                 href={route("logout")}
                                 method="post"
                                 as="button"
-                                className="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                className="text-sm text-gray-600 underline rounded-md hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                             >
-                                Log Out
+                                Logout
                             </Link>
                         </CardFooter>
                     </form>

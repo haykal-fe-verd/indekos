@@ -1,5 +1,6 @@
 import {
     ArchiveRestore,
+    Bed,
     LayoutDashboard,
     Settings,
     UploadCloud,
@@ -11,6 +12,12 @@ export const navigations = [
         href: route("dashboard"),
         icon: LayoutDashboard,
         role: ["admin", "penyewa"],
+    },
+    {
+        label: "Kamar",
+        href: route("kamar.index"),
+        icon: Bed,
+        role: ["admin"],
     },
     {
         label: "Kategori",

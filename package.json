@@ -45,6 +45,7 @@
         "pusher-js": "^8.3.0",
         "react-day-picker": "^8.8.1",
         "sweetalert2": "^11.7.27",
+        "swiper": "^10.2.0",
         "tailwind-merge": "^1.14.0",
         "tailwindcss-animate": "^1.0.7"
     }

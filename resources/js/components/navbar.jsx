@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import MobileNavbar from "@/components/mobile-navbar";
 
 function Navbar() {
-    const { indekos } = usePage().props;
+    const { ziggy, indekos } = usePage().props;
 
     return (
         <header className="sticky inset-x-0 top-0 z-50 w-full bg-white border ">
@@ -19,7 +19,7 @@ function Navbar() {
                     >
                         <img
                             src={`/storage/${indekos.logo}`}
-                            className="hidden w-16 h-16 lg:block"
+                            className="hidden w-16 lg:block"
                         />
                         <span className="text-2xl font-semibold tracking-wider text-primary">
                             Indekos
@@ -35,7 +35,13 @@ function Navbar() {
                             <Link
                                 key={index}
                                 href={item.href}
-                                className="hover:text-primary"
+                                className={cn(
+                                    "text-sm leading-6 text-black hover:text-primary",
+                                    ziggy.location === item.href ||
+                                        ziggy.location.includes(route.href)
+                                        ? "text-primary"
+                                        : "text-black"
+                                )}
                             >
                                 {item.label}
                             </Link>

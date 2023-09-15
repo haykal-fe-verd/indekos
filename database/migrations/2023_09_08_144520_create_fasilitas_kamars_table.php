@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('kamar_id');
             $table->string('nama_fasilitas');
-            $table->text('icon_fasilitas');
 
             $table->foreign('kamar_id')->references('id')->on('tb_kamar')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

@@ -5,7 +5,7 @@ export const navigationsGuest = [
     },
     {
         label: "Daftar Kamar",
-        href: "#",
+        href: route("daftar.kamar"),
     },
     {
         label: "Tentang",
