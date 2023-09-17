@@ -1,6 +1,7 @@
 import {
     ArchiveRestore,
     Bed,
+    FileText,
     LayoutDashboard,
     Settings,
     UploadCloud,
@@ -34,9 +35,15 @@ export const navigations = [
 
     // penyewa
     {
-        label: "Kamar",
+        label: "Kamar Saya",
         href: "",
         icon: UploadCloud,
+        role: ["penyewa"],
+    },
+    {
+        label: "Transaksi Saya",
+        href: "",
+        icon: FileText,
         role: ["penyewa"],
     },
 ];

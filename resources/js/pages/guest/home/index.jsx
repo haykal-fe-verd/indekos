@@ -11,6 +11,7 @@ import { Loader2, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CardKamarTerbaru from "@/components/card-kamar-terbaru";
+import Footer from "@/components/footer";
 
 function Home() {
     const { indekos, kamarTerbaru, kamar } = usePage().props;
@@ -179,6 +180,7 @@ function Home() {
                     </div>
                 </div>
             </section>
+            <Footer />
         </GuestLayout>
     );
 }

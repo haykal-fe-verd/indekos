@@ -112,7 +112,6 @@ function Indekos() {
                             />
                             <InputError message={errors.deskripsi} />
                         </div>
-
                     </div>
 
                     <Button

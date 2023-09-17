@@ -3,7 +3,6 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -15,10 +14,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndekosController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PaymentCallbackController;
+use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
-
+// callback
+Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
 
 //* guest
 Route::middleware('guest')->group(function () {
@@ -29,7 +31,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/daftar-kamar', [HomeController::class, 'daftarKamar'])->name('daftar.kamar'); //*! done
 
     // detail kamar
-    Route::get('/detail-kamar/{id}', [HomeController::class, 'detailKamar'])->name('detail.kamar');
+    Route::get('/detail-kamar/{id}', [HomeController::class, 'detailKamar'])->name('detail.kamar');  //*! done
 
     // register
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); //*! done
@@ -48,6 +50,8 @@ Route::middleware('guest')->group(function () {
 
 //* auth
 Route::middleware(['auth', 'verified'])->group(function () {
+
+
     // change password
     Route::get('change-password', [PasswordController::class, 'index'])->name('password.index'); //*! done
     Route::put('change-password', [PasswordController::class, 'update'])->name('password.update'); //*! done
@@ -80,6 +84,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // penyewa
     Route::middleware('can:penyewa')->group(function () {
+        // pembayaran
+        Route::get('/payment/{id}', [PembayaranController::class, 'index'])->name('payment.index'); //*! done
+        Route::post('/payment', [PembayaranController::class, 'store'])->name('payment.store'); //*! done
     });
 });
 

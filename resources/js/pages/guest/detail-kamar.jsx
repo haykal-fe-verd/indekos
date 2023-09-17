@@ -1,5 +1,5 @@
 import React from "react";
-import { Head } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import {
     Navigation,
     Pagination,
@@ -7,7 +7,6 @@ import {
     A11y,
     Autoplay,
 } from "swiper/modules";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import GuestLayout from "@/layouts/guest-layout";
@@ -16,13 +15,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { Bitcoin } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Footer from "@/components/footer";
 
 function DetailKamarGuest({ kamar }) {
-    console.log("🚀  kamar:", kamar);
-
     const [showFullDescription, setShowFullDescription] = React.useState(false);
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
@@ -111,6 +108,7 @@ function DetailKamarGuest({ kamar }) {
                         </p>
                         {kamar?.deskripsi_kamar.length > 150 && (
                             <button
+                                type="button"
                                 onClick={toggleDescription}
                                 className="my-3 underline cursor-pointer text-primary w-fit"
                             >
@@ -136,13 +134,19 @@ function DetailKamarGuest({ kamar }) {
 
                         <Separator className="my-5" />
 
-                        <Button className={cn("gap-3 flex flex-row")}>
+                        <Link
+                            href={route("payment.index", kamar.id)}
+                            className={cn(
+                                "gap-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+                            )}
+                        >
                             <Bitcoin />
                             <span className="font-semibold">Sewa Sekarang</span>
-                        </Button>
+                        </Link>
                     </div>
                 </div>
             </section>
+            <Footer />
         </GuestLayout>
     );
 }

@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                 'message' => session('message'),
                 'success' => session('success'),
                 'error' => session('error'),
+                'snapToken' => session('snapToken')
             ],
             'indekos' => Indekos::first() ?? [
                 'nama' => 'nama indekos',
