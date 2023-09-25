@@ -47,8 +47,6 @@ function Kategori({ kamar }) {
                             navigation
                             pagination={{ clickable: true }}
                             scrollbar={{ draggable: true }}
-                            onSwiper={(swiper) => console.log(swiper)}
-                            onSlideChange={() => console.log("slide change")}
                         >
                             {kamar.foto_kamar.map((item, index) => {
                                 return (

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('kamar_id');
             $table->string('invoice');
             $table->string('snap_token')->nullable();
+            $table->string('via')->nullable();
+            $table->enum('pilihan_pembayaran', ['1', '2'])->default('1')->nullable()
+                ->comment('1=langsung, 2=cod');
             $table->enum('status', ['1', '2', '3', '4'])->default('1')
                 ->comment('1=menunggu pembayaran, 2=sudah dibayar, 3=kadaluarsa, 4=batal');
 

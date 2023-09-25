@@ -19,6 +19,7 @@ class PembayaranController extends Controller
 
         return Inertia::render('auth/detail-kamar', compact('kamar'));
     }
+
     public function store(Request $request): RedirectResponse
     {
         $penyewa = $request->user()->userData();
@@ -36,5 +37,14 @@ class PembayaranController extends Controller
         $pembayaran->save();
 
         return redirect()->back()->with('snapToken', $pembayaran->snap_token);
+    }
+
+    public function updateVia(Request $request)
+    {
+        $pembayaran = Pembayaran::where('invoice', $request->invoice)->first();
+        $pembayaran->via = $request->via;
+        $pembayaran->save();
+
+        return;
     }
 }

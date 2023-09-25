@@ -73,7 +73,7 @@ class CallbackService extends Midtrans
         $notification = new Notification();
 
         $orderNumber = $notification->order_id;
-        $pembayaran = Pembayaran::where('invoice', $orderNumber)->first();
+        $pembayaran = Pembayaran::with('kamar', 'penyewa')->where('invoice', $orderNumber)->first();
 
         $this->notification = $notification;
         $this->pembayaran = $pembayaran;

@@ -8,6 +8,8 @@ import {
     Autoplay,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 import GuestLayout from "@/layouts/guest-layout";
 import "swiper/css";
@@ -22,9 +24,24 @@ import AuthLayout from "@/layouts/auth-layout";
 
 function handlePayment(snapToken) {
     window.snap.pay(snapToken, {
-        onSuccess: (result) => console.log(result),
-        onPending: (result) => console.log(result),
-        onError: (result) => console.log(result),
+        onSuccess: (result) => {
+            console.log("success", result);
+            Swal.fire("Sukses", result.status_message, "success");
+            router.visit(route("transaksi.index"));
+            router.post("/update-via", {
+                invoice: result.order_id,
+                via: result.payment_type,
+            });
+        },
+        onPending: (result) => {
+            Swal.fire("Sukses", result.status_message, "success");
+            router.visit(route("transaksi.index"));
+            router.post("/update-via", {
+                invoice: result.order_id,
+                via: result.payment_type,
+            });
+        },
+        onError: (result) => console.log("error", result),
     });
 }
 

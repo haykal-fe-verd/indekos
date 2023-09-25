@@ -5,22 +5,21 @@ import { pickBy } from "lodash";
 
 import GuestLayout from "@/layouts/guest-layout";
 import animationData from "@/assets/lottie/hero.json";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Loader2, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CardKamarTerbaru from "@/components/card-kamar-terbaru";
 import Footer from "@/components/footer";
+import { Button } from "@/components/ui/button";
 
 function Home() {
-    const { indekos, kamarTerbaru, kamar } = usePage().props;
-    console.log("🚀  kamar:", kamar);
-    console.log("🚀  kamarTerbaru:", kamarTerbaru);
+    const { indekos, kamarTerbaru, kamar, kategori } = usePage().props;
 
     const [isLoading, setIsLoading] = React.useState(false);
     const [search, setSearch] = React.useState("");
     const [searchChanged, setSearchChanged] = React.useState(false);
+    const [selectedCategory, setSelectedCategory] = React.useState(null);
 
     React.useEffect(() => {
         if (searchChanged) {
@@ -43,6 +42,7 @@ function Home() {
             onFinish: () => setIsLoading(false),
         });
     };
+
     return (
         <GuestLayout>
             <Head title="Home" />
@@ -93,8 +93,8 @@ function Home() {
                                                     (item, index) => {
                                                         return (
                                                             <Link
-                                                                href="#"
                                                                 key={index}
+                                                                href="#"
                                                                 className="flex gap-5 p-2 my-2 rounded-md hover:bg-primary hover:text-white"
                                                             >
                                                                 <div className="w-1/2 ">
@@ -128,7 +128,11 @@ function Home() {
                                                                             (
                                                                                 item
                                                                             ) => (
-                                                                                <span>
+                                                                                <span
+                                                                                    key={
+                                                                                        item.id
+                                                                                    }
+                                                                                >
                                                                                     {" "}
                                                                                     {
                                                                                         item.nama_fasilitas
@@ -173,10 +177,62 @@ function Home() {
                     </h1>
                     <div className="grid grid-cols-4 gap-5 mt-5">
                         {kamarTerbaru.map((item, index) => {
-                            return (
-                                <CardKamarTerbaru item={item} index={index} />
-                            );
+                            return <CardKamarTerbaru key={index} item={item} />;
                         })}
+                    </div>
+                </div>
+            </section>
+
+            {/* kategori */}
+            <section id="kategori-kamar" className="bg-white">
+                <div className="container mx-auto md:px-24 md:py-10 md:flex-row">
+                    <h1 className="text-2xl font-semibold capitalize text-stone-600">
+                        Kategori Kamar
+                    </h1>
+                    <div className="flex flex-col items-start justify-between w-full space-y-5 lg:items-center lg:flex-row">
+                        <div className="flex flex-col gap-5 mt-5 lg:flex-row">
+                            {kategori?.map((item, index) => {
+                                return (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        className={`px-3 py-1 text-sm  rounded-md ${
+                                            selectedCategory ===
+                                            item.nama_kategori
+                                                ? "bg-primary text-white"
+                                                : "bg-secondary"
+                                        }`}
+                                        onClick={() =>
+                                            setSelectedCategory(
+                                                item.nama_kategori
+                                            )
+                                        }
+                                    >
+                                        {item.nama_kategori}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <Link
+                            href={route("daftar.kamar")}
+                            className="px-3 py-1 text-sm text-white rounded-md bg-primary"
+                        >
+                            Lihat semua
+                        </Link>
+                    </div>
+                    <div className="grid grid-cols-4 gap-5 mt-5">
+                        {kamar?.data
+                            .filter((item) =>
+                                selectedCategory
+                                    ? item.kategori.nama_kategori ===
+                                      selectedCategory
+                                    : true
+                            )
+                            .map((item, index) => {
+                                return (
+                                    <CardKamarTerbaru key={index} item={item} />
+                                );
+                            })}
                     </div>
                 </div>
             </section>

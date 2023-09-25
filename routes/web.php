@@ -16,11 +16,12 @@ use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PenyewaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
 // callback
-Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
+Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);  //*! done
 
 //* guest
 Route::middleware('guest')->group(function () {
@@ -50,8 +51,6 @@ Route::middleware('guest')->group(function () {
 
 //* auth
 Route::middleware(['auth', 'verified'])->group(function () {
-
-
     // change password
     Route::get('change-password', [PasswordController::class, 'index'])->name('password.index'); //*! done
     Route::put('change-password', [PasswordController::class, 'update'])->name('password.update'); //*! done
@@ -87,6 +86,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // pembayaran
         Route::get('/payment/{id}', [PembayaranController::class, 'index'])->name('payment.index'); //*! done
         Route::post('/payment', [PembayaranController::class, 'store'])->name('payment.store'); //*! done
+        Route::post('/update-via', [PembayaranController::class, 'updateVia'])->name('payment.via'); //*! done
+
+
+        // kamar saya
+        Route::get('/kamar-saya', [PenyewaController::class, 'kamarSaya'])->name('kamar.saya.index'); //*! done
+
+        // transaksi saya
+        Route::get('/transaksi-saya', [PenyewaController::class, 'transaksiSaya'])->name('transaksi.index'); //*! done
     });
 });
 

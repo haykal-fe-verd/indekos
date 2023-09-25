@@ -66,8 +66,8 @@ function DashboardPenyewa() {
                                 : kamar?.data?.map((item, index) => {
                                       return (
                                           <CardKamarPenyewa
+                                              key={index}
                                               item={item}
-                                              index={index}
                                           />
                                       );
                                   })}

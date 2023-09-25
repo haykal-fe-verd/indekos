@@ -36,13 +36,13 @@ export const navigations = [
     // penyewa
     {
         label: "Kamar Saya",
-        href: "",
+        href: route("kamar.saya.index"),
         icon: UploadCloud,
         role: ["penyewa"],
     },
     {
         label: "Transaksi Saya",
-        href: "",
+        href: route("transaksi.index"),
         icon: FileText,
         role: ["penyewa"],
     },

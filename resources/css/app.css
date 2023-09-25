@@ -86,3 +86,31 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.print-table {
+    display: none;
+}
+
+@media print {
+    .page-break {
+        page-break-before: always;
+    }
+    table {
+        page-break-inside: auto;
+    }
+    @page {
+        size: auto;
+        margin: 20mm 0 0 0;
+    }
+
+    @page :first {
+        margin: 0;
+    }
+    body {
+        margin: 0;
+    }
+
+    .print-table {
+        display: block;
+    }
+}

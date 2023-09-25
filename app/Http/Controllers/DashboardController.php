@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use App\Models\Kategori;
+use App\Models\Pembayaran;
+use App\Models\Penyewa;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,7 +15,12 @@ class DashboardController extends Controller
     public function index(Request $request): Response
     {
         if ($request->user()->role === 'admin') {
-            return Inertia::render('auth/dashboard/admin');
+            $totalKamar = Kamar::count();
+            $totalKategori = Kategori::count();
+            $totalPenyewa = Penyewa::count();
+            $totalTransaksi = Pembayaran::count();
+
+            return Inertia::render('auth/dashboard/admin', compact('totalKamar', 'totalKategori', 'totalPenyewa', 'totalTransaksi'));
         } else {
             $query = Kamar::with(['fasilitas_kamar', 'foto_kamar', 'kategori'])->latest();
 

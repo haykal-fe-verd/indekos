@@ -13,7 +13,6 @@ class PaymentCallbackController extends Controller
     public function receive()
     {
         $callback = new CallbackService;
-        $currentTime = Carbon::now();
 
 
         if ($callback->isSignatureKeyVerified()) {
@@ -22,7 +21,7 @@ class PaymentCallbackController extends Controller
 
 
             if ($callback->isSuccess()) {
-                Pembayaran::where('id', $pembayaran->id)->update([
+                Pembayaran::with(['kamar'])->where('id', $pembayaran->id)->update([
                     'status' => 2,
                 ]);
             }

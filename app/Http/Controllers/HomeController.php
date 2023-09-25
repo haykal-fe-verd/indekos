@@ -27,7 +27,7 @@ class HomeController extends Controller
             });
         }
 
-        $kamar = $query->paginate($request->perpage ?? 10)->withQueryString();
+        $kamar = $query->paginate($request->perpage ?? 16)->withQueryString();
 
         return Inertia::render('guest/home/index', compact('kamarTerbaru', 'kamar'));
     }

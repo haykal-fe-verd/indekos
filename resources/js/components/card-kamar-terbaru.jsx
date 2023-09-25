@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 
-function CardKamarTerbaru({ item, index }) {
+function CardKamarTerbaru({ item }) {
     return (
         <Link
-            key={index}
             href={route("detail.kamar", item.id)}
             className="flex flex-col col-span-4 leading-relaxed lg:col-span-1 text-stone-600"
         >
