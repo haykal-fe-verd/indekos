@@ -28,6 +28,8 @@ Route::middleware('guest')->group(function () {
     // home
     Route::get('/', [HomeController::class, 'index'])->name('home'); //*! done
 
+    Route::get('/about', [HomeController::class, 'about'])->name('about'); //*! done
+
     // daftar kamar
     Route::get('/daftar-kamar', [HomeController::class, 'daftarKamar'])->name('daftar.kamar'); //*! done
 

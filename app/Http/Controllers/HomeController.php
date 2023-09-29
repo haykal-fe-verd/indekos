@@ -59,4 +59,9 @@ class HomeController extends Controller
 
         return Inertia::render('guest/detail-kamar', compact('kamar'));
     }
+
+    public function about()
+    {
+        return Inertia::render('guest/about/index');
+    }
 }

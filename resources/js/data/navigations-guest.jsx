@@ -9,7 +9,7 @@ export const navigationsGuest = [
     },
     {
         label: "Tentang",
-        href: "#about",
+        href: route("about"),
     },
     {
         label: "Registrasi",
