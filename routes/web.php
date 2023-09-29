@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -81,6 +82,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('kamar', [KamarController::class, 'store'])->name('kamar.store');  //*! done
         Route::post('kamar/{id}', [KamarController::class, 'update'])->name('kamar.update'); //*! done
         Route::delete('kamar/{id}', [KamarController::class, 'destroy'])->name('kamar.destroy');  //*! done
+
+        // transaksi
+        Route::get('/transaksi', [AdminController::class, 'index'])->name('admin.index'); //*! done
+
     });
 
     // penyewa

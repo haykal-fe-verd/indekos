@@ -28,7 +28,7 @@ function Indekos() {
 
     return (
         <AuthLayout>
-            <Head title="Setting MPP" />
+            <Head title="Setting Kos" />
             <div className="p-5 space-y-4 bg-white rounded-md shadow-md ">
                 <div>
                     <h2 className="text-2xl font-bold md:text-4xl">

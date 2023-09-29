@@ -21,6 +21,12 @@ export const navigations = [
         role: ["admin"],
     },
     {
+        label: "Transaksi",
+        href: route("admin.index"),
+        icon: FileText,
+        role: ["admin"],
+    },
+    {
         label: "Kategori",
         href: route("kategori.index"),
         icon: ArchiveRestore,
