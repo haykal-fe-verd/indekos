@@ -24,6 +24,9 @@ class CreateSnapTokenService extends Midtrans
                 'order_id' => $this->pembayaran->invoice,
                 'gross_amount' => $this->pembayaran->kamar->harga_kamar,
             ],
+            "callbacks" => [
+                "finish" => "http://indekos.my.id/transaksi-saya",
+            ],
             'item_details' => [
                 [
                     'id' => $this->pembayaran->id,
