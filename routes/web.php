@@ -18,6 +18,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenyewaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
@@ -86,6 +87,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // transaksi
         Route::get('/transaksi', [AdminController::class, 'index'])->name('admin.index'); //*! done
 
+        // user
+        Route::get('user', [UserController::class, 'index'])->name('user.index');
+        Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
     // penyewa

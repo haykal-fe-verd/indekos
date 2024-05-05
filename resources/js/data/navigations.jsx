@@ -5,6 +5,7 @@ import {
     LayoutDashboard,
     Settings,
     UploadCloud,
+    Users,
 } from "lucide-react";
 
 export const navigations = [
@@ -30,6 +31,12 @@ export const navigations = [
         label: "Kategori",
         href: route("kategori.index"),
         icon: ArchiveRestore,
+        role: ["admin"],
+    },
+    {
+        label: "Daftar User",
+        href: route("user.index"),
+        icon: Users,
         role: ["admin"],
     },
     {
